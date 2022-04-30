@@ -15,6 +15,7 @@
 
 		<app.runtime>4.4.0-20220221</app.runtime>
 		<mule.maven.plugin.version>3.5.4</mule.maven.plugin.version>
+		<munit.version>2.3.9</munit.version>
 	</properties>
 
 	<build>
@@ -30,21 +31,43 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-    <cloudHubDeployment>
-      <uri>https://anypoint.mulesoft.com</uri>
-      <muleVersion>4.4.0</muleVersion>
-      <username>mithilesh102</username>
-      <password>Mith@12345678</password>
-      <applicationName>prod-api</applicationName>
-      <environment>Dev</environment>
-      <region>us-east-1</region>
-      <workers>1</workers>
-      <workerType>MICRO</workerType>
-      <properties>
-        <http.port>8081</http.port>
-      </properties>
-    </cloudHubDeployment>
-  </configuration>
+					<cloudHubDeployment>
+						<uri>https://anypoint.mulesoft.com</uri>
+						<muleVersion>4.4.0</muleVersion>
+						<username>mithilesh102</username>
+						<password>Mith@12345678</password>
+						<applicationName>prod-api</applicationName>
+						<environment>Dev</environment>
+						<region>us-east-1</region>
+						<workers>1</workers>
+						<workerType>MICRO</workerType>
+						<properties>
+							<http.port>8081</http.port>
+						</properties>
+					</cloudHubDeployment>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.mulesoft.munit.tools</groupId>
+				<artifactId>munit-maven-plugin</artifactId>
+				<version>${munit.version}</version>
+				<executions>
+					<execution>
+						<id>test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<coverage>
+						<runCoverage>true</runCoverage>
+						<formats>
+							<format>html</format>
+						</formats>
+					</coverage>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -74,6 +97,26 @@
 			<artifactId>mule-apikit-module</artifactId>
 			<version>1.5.11</version>
 			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.munit</groupId>
+			<artifactId>munit-runner</artifactId>
+			<version>2.3.9</version>
+			<classifier>mule-plugin</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.munit</groupId>
+			<artifactId>munit-tools</artifactId>
+			<version>2.3.9</version>
+			<classifier>mule-plugin</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.weave</groupId>
+			<artifactId>assertions</artifactId>
+			<version>1.0.2</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
